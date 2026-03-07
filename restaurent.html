@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Spice Garden - Delicious food delivered fresh. Explore menu, offers, gallery, and reserve your table.">
+  <title>Spice Garden | Modern Restaurant</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #1a0f0a;
+      --bg-alt: #27140d;
+      --card: rgba(255, 255, 255, 0.06);
+      --text: #fff5e8;
+      --muted: #e8cdb0;
+      --orange: #ff8a2b;
+      --red: #ff4a3d;
+      --brown: #5d2a16;
+      --gradient: linear-gradient(135deg, #ff8a2b, #ff4a3d);
+      --radius: 16px;
+      --shadow: 0 15px 35px rgba(0, 0, 0, 0.35);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Inter", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(255, 138, 43, 0.2), transparent 35%),
+        radial-gradient(circle at 85% 0%, rgba(255, 74, 61, 0.2), transparent 35%),
+        linear-gradient(160deg, var(--bg), #0f0805 65%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    .section { padding: 84px 0; }
+    .section-title {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+    }
+    .section-sub { color: var(--muted); margin-bottom: 30px; }
+
+    .header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(18, 10, 6, 0.82);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      font-family: "Playfair Display", serif;
+      font-size: 1.7rem;
+      letter-spacing: 0.4px;
+    }
+    .logo span { color: var(--orange); }
+    .nav-links { display: flex; gap: 20px; }
+    .nav-links a { color: #ffd8b5; font-weight: 500; transition: color 0.25s; }
+    .nav-links a:hover { color: #fff; }
+    .menu-btn {
+      display: none; border: 0; background: transparent; color: #fff; font-size: 1.6rem; cursor: pointer;
+    }
+
+    .hero {
+      min-height: 88vh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(15, 8, 5, 0.82), rgba(15, 8, 5, 0.38)),
+        url("https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    }
+    .hero h1 {
+      font-family: "Playfair Display", serif;
+      font-size: clamp(2.3rem, 6vw, 4.2rem);
+      line-height: 1.08;
+      max-width: 12ch;
+      margin-bottom: 18px;
+    }
+    .hero p {
+      max-width: 58ch;
+      color: #ffe0c2;
+      margin-bottom: 28px;
+    }
+
+    .btn {
+      display: inline-block;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font-weight: 700;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: var(--gradient);
+      box-shadow: 0 12px 28px rgba(255, 80, 40, 0.35);
+    }
+    .btn-secondary {
+      border-color: rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.08);
+    }
+    .btn:hover { transform: translateY(-2px); }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 24px;
+      align-items: center;
+    }
+    .about-box, .offer, .review, .menu-card, .reservation-form, .contact-card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .about-box { padding: 28px; }
+    .about-box p { color: var(--muted); }
+    .about-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .about-img img { height: 100%; width: 100%; object-fit: cover; }
+
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .menu-card { overflow: hidden; transition: transform .25s ease; }
+    .menu-card:hover { transform: translateY(-6px); }
+    .menu-card img { height: 170px; width: 100%; object-fit: cover; }
+    .menu-content { padding: 14px; }
+    .menu-content h3 { margin-bottom: 5px; }
+    .price { color: #ffb06b; font-weight: 700; margin-bottom: 8px; }
+    .menu-content p { color: var(--muted); font-size: 0.95rem; }
+
+    .offers-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .offer { padding: 20px; }
+    .offer h3 { color: #ffd8b5; margin-bottom: 8px; }
+    .offer p { color: var(--muted); }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .gallery-grid img {
+      width: 100%;
+      height: 190px;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform .25s ease;
+    }
+    .gallery-grid img:hover { transform: scale(1.03); }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .review { padding: 20px; }
+    .review p { color: var(--muted); margin-bottom: 12px; }
+    .review h4 { font-size: 1rem; }
+
+    .reservation-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+    .reservation-form { padding: 20px; display: grid; gap: 10px; }
+    .reservation-form input,
+    .reservation-form select {
+      width: 100%;
+      background: rgba(255,255,255,0.08);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 10px;
+      padding: 11px 12px;
+      font: inherit;
+      outline: none;
+    }
+    .reservation-form input:focus,
+    .reservation-form select:focus { border-color: var(--orange); }
+
+    .contact-card { padding: 24px; }
+    .contact-list li { margin-bottom: 10px; color: var(--muted); }
+    .map {
+      margin-top: 14px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+    .map iframe { width: 100%; height: 260px; border: 0; }
+
+    .footer {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding: 24px 0;
+      text-align: center;
+      color: #d9b697;
+    }
+    .socials {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+    .socials a {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      border: 1px solid rgba(255,255,255,0.18);
+      background: rgba(255,255,255,0.06);
+      transition: transform .2s ease, background .2s ease;
+    }
+    .socials a:hover { transform: translateY(-2px); background: rgba(255,138,43,0.2); }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1024px) {
+      .menu-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .menu-btn { display: block; }
+      .nav-links {
+        position: absolute;
+        right: 4%;
+        top: 74px;
+        width: min(280px, 92%);
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px;
+        background: rgba(20, 11, 7, 0.96);
+        border: 1px solid rgba(255,255,255,0.12);
+        border-radius: 12px;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.96);
+        transition: .25s ease;
+      }
+      .nav-links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1);
+      }
+
+      .about-grid,
+      .reservation-grid,
+      .offers-grid,
+      .reviews-grid { grid-template-columns: 1fr; }
+      .menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .gallery-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .section { padding: 70px 0; }
+    }
+
+    @media (max-width: 520px) {
+      .menu-grid,
+      .gallery-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#home" class="logo">Spice <span>Garden</span></a>
+      <button class="menu-btn" aria-label="Toggle menu">☰</button>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#offers">Offers</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#reservation">Reserve</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container reveal">
+      <h1>Delicious Food, Delivered Fresh</h1>
+      <p>Experience handcrafted meals, rich flavors, and warm hospitality at Spice Garden. Every dish is prepared with fresh ingredients by passionate chefs.</p>
+      <a href="#menu" class="btn btn-primary">View Menu</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container about-grid">
+      <div class="about-box reveal">
+        <h2 class="section-title">About Spice Garden</h2>
+        <p>Spice Garden started as a family kitchen and grew into a modern dining space loved by food enthusiasts. Our chefs blend traditional recipes with creative techniques to serve unforgettable meals.</p>
+        <p>From wood-fired favorites to signature desserts, we focus on freshness, taste, and a welcoming experience every day.</p>
+      </div>
+      <div class="about-img reveal">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1200&q=80" alt="Spice Garden chefs at work">
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Our Menu</h2>
+      <p class="section-sub reveal">Freshly prepared favorites made with premium ingredients.</p>
+      <div class="menu-grid">
+        <article class="menu-card reveal">
+          <img src="https://images.unsplash.com/photo-1513104890138-7c749659a591?auto=format&fit=crop&w=1000&q=80" alt="Pizza">
+          <div class="menu-content">
+            <h3>Pizza</h3>
+            <p class="price">₹349</p>
+            <p>Stone-baked crust, rich sauce, and premium toppings.</p>
+          </div>
+        </article>
+        <article class="menu-card reveal">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=1000&q=80" alt="Pasta">
+          <div class="menu-content">
+            <h3>Pasta</h3>
+            <p class="price">₹299</p>
+            <p>Creamy and tangy sauces with perfectly cooked pasta.</p>
+          </div>
+        </article>
+        <article class="menu-card reveal">
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=1000&q=80" alt="Burger">
+          <div class="menu-content">
+            <h3>Burger</h3>
+            <p class="price">₹249</p>
+            <p>Juicy patties, fresh veggies, and house special sauces.</p>
+          </div>
+        </article>
+        <article class="menu-card reveal">
+          <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&w=1000&q=80" alt="Desserts">
+          <div class="menu-content">
+            <h3>Desserts</h3>
+            <p class="price">₹199</p>
+            <p>Sweet handcrafted treats to complete your meal.</p>
+          </div>
+        </article>
+        <article class="menu-card reveal">
+          <img src="https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1000&q=80" alt="Drinks">
+          <div class="menu-content">
+            <h3>Drinks</h3>
+            <p class="price">₹149</p>
+            <p>Refreshing mocktails, shakes, and chilled beverages.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="offers" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Special Offers</h2>
+      <div class="offers-grid">
+        <article class="offer reveal">
+          <h3>Weekend Family Combo</h3>
+          <p>Get 20% off on orders above ₹1500 every Saturday and Sunday.</p>
+        </article>
+        <article class="offer reveal">
+          <h3>2 for 1 Pasta Tuesday</h3>
+          <p>Order one pasta and get one free every Tuesday evening.</p>
+        </article>
+        <article class="offer reveal">
+          <h3>Free Dessert Friday</h3>
+          <p>Enjoy a complimentary dessert with every dine-in main course.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Gallery</h2>
+      <div class="gallery-grid">
+        <img class="reveal" src="https://images.unsplash.com/photo-1529563021893-cc83c992d75d?auto=format&fit=crop&w=900&q=80" alt="Food item 1">
+        <img class="reveal" src="https://images.unsplash.com/photo-1481931098730-318b6f776db0?auto=format&fit=crop&w=900&q=80" alt="Food item 2">
+        <img class="reveal" src="https://images.unsplash.com/photo-1511690656952-34342bb7c2f2?auto=format&fit=crop&w=900&q=80" alt="Food item 3">
+        <img class="reveal" src="https://images.unsplash.com/photo-1529042410759-befb1204b468?auto=format&fit=crop&w=900&q=80" alt="Food item 4">
+        <img class="reveal" src="https://images.unsplash.com/photo-1473093295043-cdd812d0e601?auto=format&fit=crop&w=900&q=80" alt="Food item 5">
+        <img class="reveal" src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=900&q=80" alt="Food item 6">
+        <img class="reveal" src="https://images.unsplash.com/photo-1525610553991-2bede1a236e2?auto=format&fit=crop&w=900&q=80" alt="Food item 7">
+        <img class="reveal" src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=900&q=80" alt="Food item 8">
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="section">
+    <div class="container">
+      <h2 class="section-title reveal">Customer Reviews</h2>
+      <div class="reviews-grid">
+        <article class="review reveal">
+          <p>"Amazing food quality and super fast delivery. The pasta and pizza are my absolute favorites!"</p>
+          <h4>- Riya Kapoor</h4>
+        </article>
+        <article class="review reveal">
+          <p>"Warm ambiance, friendly staff, and beautifully presented dishes. Great place for family dinners."</p>
+          <h4>- Arjun Patel</h4>
+        </article>
+        <article class="review reveal">
+          <p>"The flavors are rich and authentic. Every visit to Spice Garden feels premium and satisfying."</p>
+          <h4>- Sneha Verma</h4>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="reservation" class="section">
+    <div class="container reservation-grid">
+      <div class="reveal">
+        <h2 class="section-title">Reserve a Table</h2>
+        <p class="section-sub">Book your table in seconds and enjoy a memorable dining experience.</p>
+      </div>
+      <form class="reservation-form reveal" action="https://formspree.io/f/maqpyqqr" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <input type="date" name="date" required>
+        <input type="time" name="time" required>
+        <select name="guests" required>
+          <option value="">Guests</option>
+          <option>1 Guest</option>
+          <option>2 Guests</option>
+          <option>3 Guests</option>
+          <option>4 Guests</option>
+          <option>5+ Guests</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Book Now</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container contact-card reveal">
+      <h2 class="section-title">Contact Us</h2>
+      <ul class="contact-list">
+        <li><strong>Address:</strong> Bareilly, Uttar Pradesh, India</li>
+        
+        <li><strong>Email:</strong> hello@spicegarden.com</li>
+      </ul>
+      <div class="map">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Bareilly+Uttar+Pradesh&output=embed" title="Map to Spice Garden"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="YouTube">YT</a>
+      </div>
+      <p>Leadership: Sandesh Mishra / CEO</p>
+      <p>&copy; <span id="year"></span> Spice Garden. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.querySelector(".menu-btn");
+    const navLinks = document.querySelector(".nav-links");
+    const revealEls = document.querySelectorAll(".reveal");
+
+    menuBtn.addEventListener("click", () => {
+      navLinks.classList.toggle("open");
+    });
+
+    navLinks.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => navLinks.classList.remove("open"));
+    });
+
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.9;
+      revealEls.forEach((el) => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add("show");
+      });
+    };
+
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

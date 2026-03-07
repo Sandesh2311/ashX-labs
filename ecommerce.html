@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="TechNova Store - Modern ecommerce demo for latest tech gadgets.">
+  <title>TechNova Store | Latest Tech Gadgets</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f8ff;
+      --surface: #ffffff;
+      --text: #16233b;
+      --muted: #60708d;
+      --primary: #2f6bff;
+      --primary-dark: #1d4fd2;
+      --line: #d9e3f5;
+      --radius: 14px;
+      --shadow: 0 12px 30px rgba(30, 77, 175, 0.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: "Manrope", sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    .section { padding: 76px 0; }
+    .title { font-size: clamp(1.9rem, 4vw, 2.6rem); margin-bottom: 10px; }
+    .sub { color: var(--muted); margin-bottom: 26px; }
+
+    .header {
+      position: sticky; top: 0; z-index: 1000;
+      background: rgba(255, 255, 255, 0.92);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .nav {
+      min-height: 72px;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 14px;
+    }
+    .logo { font-size: 1.45rem; font-weight: 800; color: var(--primary-dark); }
+    .logo span { color: var(--primary); }
+    .nav-links { display: flex; gap: 18px; color: #385074; font-weight: 600; }
+    .cart-pill {
+      border: 1px solid #bdd1fb;
+      background: #edf3ff;
+      color: #1f53cb;
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-weight: 700;
+      font-size: 0.9rem;
+    }
+
+    .hero {
+      min-height: 66vh;
+      display: grid; align-items: center;
+      background:
+        linear-gradient(90deg, rgba(255,255,255,0.93), rgba(255,255,255,0.72)),
+        url("https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    }
+    .hero h1 { font-size: clamp(2.2rem, 6vw, 4rem); line-height: 1.05; margin-bottom: 12px; max-width: 11ch; }
+    .hero p { max-width: 56ch; color: #4f6283; margin-bottom: 22px; }
+
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      border-radius: 12px; padding: 11px 20px; font-weight: 700;
+      border: 1px solid transparent; cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(47, 107, 255, 0.25);
+    }
+    .btn-outline {
+      border-color: #c3d6fb;
+      background: #f6f9ff;
+      color: #295ccf;
+    }
+
+    .grid { display: grid; gap: 14px; }
+    .product-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+    .cat-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .feature-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .review-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .product { overflow: hidden; }
+    .product img { height: 165px; width: 100%; object-fit: cover; }
+    .product-body { padding: 14px; }
+    .product h3 { font-size: 1rem; margin-bottom: 5px; }
+    .price { color: #214dc0; font-weight: 800; margin-bottom: 4px; }
+    .rating { color: #f59e0b; font-size: 0.9rem; margin-bottom: 10px; }
+    .cat, .feature, .review { padding: 18px; }
+    .cat h3, .feature h3 { margin-bottom: 6px; }
+    .cat p, .feature p, .review p { color: var(--muted); }
+
+    .cart-section .cart-wrap {
+      display: grid; grid-template-columns: 1fr auto; gap: 14px; align-items: start;
+    }
+    .cart-box { padding: 18px; }
+    .cart-list li {
+      display: flex; justify-content: space-between; gap: 10px;
+      padding: 9px 0; border-bottom: 1px solid #e7eefc; color: #36506f;
+    }
+    .cart-total { margin-top: 12px; font-weight: 800; color: #163f9e; }
+
+    .newsletter {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 10px;
+      padding: 20px;
+    }
+    .newsletter input {
+      width: 100%;
+      border: 1px solid #cfe0ff;
+      border-radius: 10px;
+      padding: 11px 12px;
+      font: inherit;
+      outline: none;
+    }
+    .newsletter input:focus { border-color: var(--primary); }
+
+    .footer {
+      margin-top: 10px;
+      border-top: 1px solid var(--line);
+      padding: 24px 0;
+      background: #fbfdff;
+      color: #587098;
+    }
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .socials { display: flex; gap: 10px; }
+    .socials a {
+      width: 35px; height: 35px;
+      border-radius: 50%;
+      display: grid; place-items: center;
+      border: 1px solid #c7d9fb;
+      background: #f1f6ff;
+      color: #2b5ecf;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .reveal.show { opacity: 1; transform: translateY(0); }
+
+    @media (max-width: 1100px) {
+      .product-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .feature-grid, .review-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .product-grid, .cat-grid, .feature-grid, .review-grid, .cart-section .cart-wrap { grid-template-columns: 1fr; }
+      .newsletter { grid-template-columns: 1fr; }
+      .section { padding: 62px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#home" class="logo">TechNova <span>Store</span></a>
+      <ul class="nav-links">
+        <li><a href="#products">Products</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#featured">Featured</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+      </ul>
+      <div class="cart-pill">Cart: <span id="cartCount">0</span></div>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container reveal">
+      <h1>Latest Tech Gadgets</h1>
+      <p>Explore trending devices, smart accessories, and premium electronics with a modern shopping experience.</p>
+      <a href="#products" class="btn btn-primary">Shop Now</a>
+    </div>
+  </section>
+
+  <section id="products" class="section">
+    <div class="container">
+      <h2 class="title reveal">Products</h2>
+      <p class="sub reveal">Top picks from TechNova Store.</p>
+      <div class="grid product-grid">
+        <article class="card product reveal">
+          <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?auto=format&fit=crop&w=1000&q=80" alt="Smartphone">
+          <div class="product-body">
+            <h3>Smartphone</h3>
+            <p class="price">₹29,999</p>
+            <p class="rating">★★★★★</p>
+            <button class="btn btn-outline add-cart" data-name="Smartphone" data-price="29999">Add to Cart</button>
+          </div>
+        </article>
+        <article class="card product reveal">
+          <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?auto=format&fit=crop&w=1000&q=80" alt="Laptop">
+          <div class="product-body">
+            <h3>Laptop</h3>
+            <p class="price">₹64,999</p>
+            <p class="rating">★★★★☆</p>
+            <button class="btn btn-outline add-cart" data-name="Laptop" data-price="64999">Add to Cart</button>
+          </div>
+        </article>
+        <article class="card product reveal">
+          <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=1000&q=80" alt="Headphones">
+          <div class="product-body">
+            <h3>Headphones</h3>
+            <p class="price">₹4,999</p>
+            <p class="rating">★★★★★</p>
+            <button class="btn btn-outline add-cart" data-name="Headphones" data-price="4999">Add to Cart</button>
+          </div>
+        </article>
+        <article class="card product reveal">
+          <img src="https://images.unsplash.com/photo-1579586337278-3befd40fd17a?auto=format&fit=crop&w=1000&q=80" alt="Smartwatch">
+          <div class="product-body">
+            <h3>Smartwatch</h3>
+            <p class="price">₹7,999</p>
+            <p class="rating">★★★★☆</p>
+            <button class="btn btn-outline add-cart" data-name="Smartwatch" data-price="7999">Add to Cart</button>
+          </div>
+        </article>
+        <article class="card product reveal">
+          <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?auto=format&fit=crop&w=1000&q=80" alt="Gaming Mouse">
+          <div class="product-body">
+            <h3>Gaming Mouse</h3>
+            <p class="price">₹2,499</p>
+            <p class="rating">★★★★☆</p>
+            <button class="btn btn-outline add-cart" data-name="Gaming Mouse" data-price="2499">Add to Cart</button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="categories" class="section">
+    <div class="container">
+      <h2 class="title reveal">Categories</h2>
+      <div class="grid cat-grid">
+        <article class="card cat reveal"><h3>Electronics</h3><p>Smartphones, laptops, tablets, and more.</p></article>
+        <article class="card cat reveal"><h3>Accessories</h3><p>Headphones, chargers, cables, and essentials.</p></article>
+        <article class="card cat reveal"><h3>Gaming</h3><p>Performance devices for immersive gameplay.</p></article>
+        <article class="card cat reveal"><h3>Smart Devices</h3><p>Wearables and connected smart gadgets.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="cart" class="section cart-section">
+    <div class="container">
+      <h2 class="title reveal">Shopping Cart</h2>
+      <div class="cart-wrap reveal">
+        <div class="card cart-box">
+          <ul id="cartList" class="cart-list">
+            <li><span>No items yet</span><span>₹0</span></li>
+          </ul>
+          <p class="cart-total">Total: ₹<span id="cartTotal">0</span></p>
+        </div>
+        <button id="clearCart" class="btn btn-outline">Clear Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="featured" class="section">
+    <div class="container">
+      <h2 class="title reveal">Featured Products</h2>
+      <div class="grid feature-grid">
+        <article class="card feature reveal"><h3>UltraBook X Pro</h3><p>Lightweight premium laptop for creators and professionals.</p></article>
+        <article class="card feature reveal"><h3>NovaPods Max</h3><p>Noise-cancelling audio with long battery backup.</p></article>
+        <article class="card feature reveal"><h3>PulseWatch 5</h3><p>Track health, workouts, sleep, and notifications.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" class="section">
+    <div class="container">
+      <h2 class="title reveal">Customer Reviews</h2>
+      <div class="grid review-grid">
+        <article class="card review reveal"><p>"Excellent product quality and fast delivery. Loved the packaging."</p><h4>- Aarav</h4></article>
+        <article class="card review reveal"><p>"Simple checkout flow and responsive customer support. Great experience."</p><h4>- Sneha</h4></article>
+        <article class="card review reveal"><p>"Got my smartwatch at a good price and it works perfectly."</p><h4>- Kiran</h4></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="newsletter" class="section">
+    <div class="container">
+      <h2 class="title reveal">Newsletter Signup</h2>
+      <form class="card newsletter reveal" action="https://formspree.io/f/maqpyqqr" method="post">
+        <input type="email" name="email" placeholder="Enter your email" required>
+        <button type="submit" class="btn btn-primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-row">
+      <p>Leadership: Sandesh Mishra / CEO</p>
+      <p>© <span id="year"></span> TechNova Store. All rights reserved.</p>
+      <div class="socials">
+        <a href="#" aria-label="Instagram">IG</a>
+        <a href="#" aria-label="Facebook">FB</a>
+        <a href="#" aria-label="X">X</a>
+      </div>
+      <p>Contact: support@technovastore.com</p>
+    </div>
+  </footer>
+
+  <script>
+    const addButtons = document.querySelectorAll(".add-cart");
+    const cartList = document.getElementById("cartList");
+    const cartCount = document.getElementById("cartCount");
+    const cartTotal = document.getElementById("cartTotal");
+    const clearCartBtn = document.getElementById("clearCart");
+    const revealEls = document.querySelectorAll(".reveal");
+    const cart = [];
+
+    const formatINR = (value) => new Intl.NumberFormat("en-IN").format(value);
+
+    function renderCart() {
+      cartCount.textContent = cart.length;
+      if (!cart.length) {
+        cartList.innerHTML = "<li><span>No items yet</span><span>₹0</span></li>";
+        cartTotal.textContent = "0";
+        return;
+      }
+
+      let total = 0;
+      cartList.innerHTML = "";
+      cart.forEach((item) => {
+        total += item.price;
+        const li = document.createElement("li");
+        li.innerHTML = `<span>${item.name}</span><span>₹${formatINR(item.price)}</span>`;
+        cartList.appendChild(li);
+      });
+      cartTotal.textContent = formatINR(total);
+    }
+
+    addButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        cart.push({
+          name: btn.dataset.name,
+          price: Number(btn.dataset.price)
+        });
+        renderCart();
+      });
+    });
+
+    clearCartBtn.addEventListener("click", () => {
+      cart.length = 0;
+      renderCart();
+    });
+
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.9;
+      revealEls.forEach((el) => {
+        if (el.getBoundingClientRect().top < trigger) el.classList.add("show");
+      });
+    };
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+    renderCart();
+  </script>
+</body>
+</html>

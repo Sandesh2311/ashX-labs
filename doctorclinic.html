@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="CarePlus Clinic provides trusted, quality healthcare with experienced doctors and modern medical services.">
+  <title>CarePlus Clinic | Quality Healthcare You Can Trust</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #1976d2;
+      --primary-dark: #0d47a1;
+      --bg: #f5f9ff;
+      --surface: #ffffff;
+      --text: #10213a;
+      --muted: #5d6f88;
+      --line: #d9e6f7;
+      --radius: 14px;
+      --shadow: 0 12px 28px rgba(18, 71, 137, 0.12);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: "Manrope", sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, #f9fcff, var(--bg));
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    .container { width: min(1120px, 92%); margin: 0 auto; }
+    .section { padding: 84px 0; }
+    .title {
+      font-family: "Poppins", sans-serif;
+      font-size: clamp(1.9rem, 4vw, 2.8rem);
+      margin-bottom: 12px;
+      color: #0f2f5f;
+    }
+    .sub { color: var(--muted); margin-bottom: 28px; }
+
+    .header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid var(--line);
+      backdrop-filter: blur(8px);
+    }
+    .nav {
+      min-height: 74px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .logo {
+      font-family: "Poppins", sans-serif;
+      font-size: 1.6rem;
+      color: var(--primary-dark);
+    }
+    .logo span { color: var(--primary); }
+    .links { display: flex; gap: 18px; }
+    .links a { color: #35527a; font-weight: 600; font-size: 0.95rem; }
+    .links a:hover { color: var(--primary); }
+    .menu {
+      display: none;
+      border: 0;
+      background: transparent;
+      color: var(--primary-dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .hero {
+      min-height: 78vh;
+      display: grid;
+      align-items: center;
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0.7)),
+        url("https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+    }
+    .hero h1 {
+      font-family: "Poppins", sans-serif;
+      font-size: clamp(2.1rem, 5vw, 3.7rem);
+      line-height: 1.1;
+      max-width: 14ch;
+      margin-bottom: 14px;
+      color: #0e2b54;
+    }
+    .hero p {
+      max-width: 60ch;
+      color: #4d6487;
+      margin-bottom: 24px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 12px;
+      padding: 12px 22px;
+      border: 1px solid transparent;
+      font-weight: 700;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(25, 118, 210, 0.25);
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    .doctor-photo {
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+    .doctor-photo img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+    .doctor-info { padding: 24px; }
+    .doctor-info p { color: var(--muted); margin-bottom: 10px; }
+    .doctor-meta {
+      margin-top: 12px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .doctor-meta span {
+      background: #edf5ff;
+      border: 1px solid #d2e7ff;
+      color: #25528f;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.86rem;
+      font-weight: 700;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .service {
+      padding: 20px;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+    .service:hover {
+      transform: translateY(-4px);
+      border-color: #b8d8ff;
+    }
+    .icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 10px;
+      background: #e9f3ff;
+      border: 1px solid #d3e7ff;
+      display: grid;
+      place-items: center;
+      margin-bottom: 10px;
+      color: var(--primary);
+      font-size: 1.05rem;
+      font-weight: 700;
+    }
+    .service h3 { margin-bottom: 6px; color: #12396f; font-size: 1rem; }
+    .service p { color: var(--muted); font-size: 0.92rem; }
+
+    .appointment-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .appointment-form {
+      padding: 20px;
+      display: grid;
+      gap: 10px;
+    }
+    .appointment-form input,
+    .appointment-form textarea {
+      width: 100%;
+      border-radius: 10px;
+      border: 1px solid #cfe2fb;
+      background: #fbfdff;
+      color: #173962;
+      padding: 11px 12px;
+      font: inherit;
+      outline: none;
+    }
+    .appointment-form input:focus,
+    .appointment-form textarea:focus { border-color: var(--primary); }
+
+    .test-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .test { padding: 20px; }
+    .test p { color: var(--muted); margin-bottom: 10px; }
+    .test h4 { color: #1c467f; }
+
+    .timing-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .timing { padding: 18px; }
+    .timing h3 { color: #164175; margin-bottom: 8px; }
+    .timing li { color: var(--muted); margin-bottom: 6px; }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 0.95fr 1.05fr;
+      gap: 14px;
+      align-items: start;
+    }
+    .contact-card { padding: 22px; }
+    .contact-card li { color: var(--muted); margin-bottom: 8px; }
+    .map {
+      overflow: hidden;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+    }
+    .map iframe {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      border: 0;
+    }
+
+    .footer {
+      margin-top: 8px;
+      border-top: 1px solid var(--line);
+      padding: 22px 0;
+      color: #51709a;
+      text-align: center;
+      background: #f8fbff;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1024px) {
+      .service-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .test-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 768px) {
+      .menu { display: block; }
+      .links {
+        position: absolute;
+        right: 4%;
+        top: 74px;
+        width: min(280px, 92%);
+        padding: 14px;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.97);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        opacity: 0;
+        pointer-events: none;
+        transform: scale(0.96);
+        transition: .24s ease;
+      }
+      .links.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: scale(1);
+      }
+
+      .about-grid,
+      .appointment-grid,
+      .timing-grid,
+      .contact-grid,
+      .service-grid,
+      .test-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero { min-height: 66vh; }
+      .section { padding: 70px 0; }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <nav class="nav container">
+      <a href="#home" class="logo">CarePlus <span>Clinic</span></a>
+      <button class="menu" aria-label="Toggle menu">☰</button>
+      <ul class="links">
+        <li><a href="#about">Doctor</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#appointment">Appointment</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#timings">Timings</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="home" class="hero">
+    <div class="container reveal">
+      <h1>Quality Healthcare You Can Trust</h1>
+      <p>Compassionate care, modern diagnostics, and experienced doctors dedicated to your family's health.</p>
+      <a href="#appointment" class="btn btn-primary">Book Appointment</a>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container">
+      <h2 class="title reveal">About Doctor</h2>
+      <div class="about-grid">
+        <article class="doctor-photo reveal">
+          <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1000&q=80" alt="Doctor portrait at CarePlus Clinic">
+        </article>
+        <article class="card doctor-info reveal">
+          <h3>Dr. Ananya Mehta, MBBS, MD</h3>
+          <p>Dr. Ananya brings over 12 years of clinical practice in family medicine, preventive care, and chronic condition management.</p>
+          <p>She is known for patient-first consultations, clear treatment plans, and evidence-based care for all age groups.</p>
+          <div class="doctor-meta">
+            <span>12+ Years Experience</span>
+            <span>Family Medicine</span>
+            <span>Preventive Care</span>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <h2 class="title reveal">Our Services</h2>
+      <div class="service-grid">
+        <article class="card service reveal">
+          <div class="icon">+</div>
+          <h3>General Checkup</h3>
+          <p>Routine health exams and wellness screenings.</p>
+        </article>
+        <article class="card service reveal">
+          <div class="icon">D</div>
+          <h3>Dental Care</h3>
+          <p>Oral hygiene, consultations, and basic dental procedures.</p>
+        </article>
+        <article class="card service reveal">
+          <div class="icon">C</div>
+          <h3>Child Care</h3>
+          <p>Pediatric consultations, vaccinations, and growth monitoring.</p>
+        </article>
+        <article class="card service reveal">
+          <div class="icon">Dx</div>
+          <h3>Diagnostics</h3>
+          <p>Lab tests, scans, and timely diagnostic support.</p>
+        </article>
+        <article class="card service reveal">
+          <div class="icon">24</div>
+          <h3>Emergency Care</h3>
+          <p>Immediate medical attention for urgent health concerns.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="appointment" class="section">
+    <div class="container appointment-grid">
+      <article class="reveal">
+        <h2 class="title">Appointment Booking</h2>
+        <p class="sub">Fill in your details and our team will confirm your appointment shortly.</p>
+      </article>
+      <form class="card appointment-form reveal" action="https://formspree.io/f/maqpyqqr" method="post">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="tel" name="phone" placeholder="Phone" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="date" name="preferred_date" required>
+        <textarea name="message" rows="4" placeholder="Message"></textarea>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </section>
+
+  <section id="testimonials" class="section">
+    <div class="container">
+      <h2 class="title reveal">Patient Testimonials</h2>
+      <div class="test-grid">
+        <article class="card test reveal">
+          <p>"Very professional and caring clinic. The consultation was clear and reassuring."</p>
+          <h4>- Priya S.</h4>
+        </article>
+        <article class="card test reveal">
+          <p>"Clean environment, quick service, and excellent guidance for my treatment."</p>
+          <h4>- Rajesh K.</h4>
+        </article>
+        <article class="card test reveal">
+          <p>"Our family trusts CarePlus for regular checkups. Highly recommended."</p>
+          <h4>- Nisha R.</h4>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="timings" class="section">
+    <div class="container">
+      <h2 class="title reveal">Clinic Timings</h2>
+      <div class="timing-grid">
+        <article class="card timing reveal">
+          <h3>Weekdays</h3>
+          <ul>
+            <li>Monday - Friday: 9:00 AM - 1:00 PM</li>
+            <li>Evening: 5:00 PM - 9:00 PM</li>
+          </ul>
+        </article>
+        <article class="card timing reveal">
+          <h3>Weekend</h3>
+          <ul>
+            <li>Saturday: 10:00 AM - 4:00 PM</li>
+            <li>Sunday: Emergency appointments only</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section">
+    <div class="container contact-grid">
+      <article class="card contact-card reveal">
+        <h2 class="title">Contact Us</h2>
+        <ul>
+          <li><strong>Address:</strong> Bareilly, Uttar Pradesh, India</li>
+          
+          <li><strong>Email:</strong> contact@careplusclinic.com</li>
+        </ul>
+      </article>
+      <article class="map reveal">
+        <iframe loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Bareilly+Uttar+Pradesh+India&output=embed" title="CarePlus Clinic location map"></iframe>
+      </article>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Leadership: Sandesh Mishra / CEO</p>
+      <p>&copy; <span id="year"></span> CarePlus Clinic. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    const menuBtn = document.querySelector(".menu");
+    const links = document.querySelector(".links");
+    const revealEls = document.querySelectorAll(".reveal");
+
+    menuBtn.addEventListener("click", () => {
+      links.classList.toggle("open");
+    });
+
+    links.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => links.classList.remove("open"));
+    });
+
+    const revealOnScroll = () => {
+      const trigger = window.innerHeight * 0.9;
+      revealEls.forEach((el) => {
+        if (el.getBoundingClientRect().top < trigger) {
+          el.classList.add("show");
+        }
+      });
+    };
+
+    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("load", revealOnScroll);
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
