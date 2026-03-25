@@ -292,12 +292,63 @@ ul {
   margin-top: 8px;
 }
 
+@media (max-width: 1024px) {
+  .hero-grid,
+  .generator-shell,
+  .why-grid,
+  .solutions-grid,
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .grid {
+    gap: 18px;
+  }
+}
+
 @media (max-width: 840px) {
   .portfolio-grid {
     grid-template-columns: 1fr;
   }
-}
 
+  .header {
+    padding: 0 1rem;
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+  .nav-links {
+    position: fixed;
+    inset: 76px 0 0;
+    padding: 1.5rem;
+    background: rgba(6, 11, 24, 0.95);
+    backdrop-filter: blur(12px);
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    transform: translateY(-160%);
+    transition: transform 0.25s ease;
+    z-index: 1005;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .nav-links.open {
+    transform: translateY(0);
+  }
+
+  .nav-links a {
+    width: 100%;
+    color: #d8e0ff;
+    font-size: 1rem;
+  }
+
+  .nav-links a.active {
+    color: #fff;
+    font-weight: 700;
+  }
+}
 
 .service-card p,
 .contact-info p,
